@@ -41,6 +41,11 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
       - name: Update GEOS
         if: runner.os == 'Linux'
         run: |
@@ -48,11 +53,6 @@ jobs:
           sudo add-apt-repository ppa:ubuntugis/ppa
           sudo apt-get update
           sudo apt-get install libgeos-dev
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
 
       - name: Commpile sf from source
         if: runner.os == 'Linux'
