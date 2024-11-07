@@ -56,7 +56,7 @@ jobs:
 
       - name: Commpile sf from source
         if: runner.os == 'Linux'
-        run: install.packages("sf", type = "source")
+        run: install.packages("sf", type = "source", repos = "https://cran.rstudio.com/")
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
