@@ -47,12 +47,17 @@ jobs:
           sudo apt-get install software-properties-common
           sudo add-apt-repository ppa:ubuntugis/ppa
           sudo apt-get update
-          sudo apt-get install libgeos-dev libproj-dev
+          sudo apt-get install libgeos-dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
           needs: check
+
+      - name: Commpile sf from source
+        if: runner.os == 'Linux'
+        run: install.packages("sf", type = "source")
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
